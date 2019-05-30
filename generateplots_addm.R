@@ -1,4 +1,4 @@
-setwd("C:/Anna/addm_writeup")
+setwd("C:/Anna/thesis/ADDM")
 library(data.table)
 library(ggplot2)
 
@@ -155,7 +155,7 @@ library(data.table)
 library(ggplot2)
 library(tidyverse)
 library(gridExtra)
-setwd("C:/Anna/addm_writeup")
+#setwd("C:/Anna/addm_writeup")
 detect.better.than.second.best <- function(E1, E2, E3, threshold = 1) {
   e.sorted <- sort(c(E1, E2, E3), decreasing = TRUE)
   (e.sorted[1] - e.sorted[2]) > threshold
@@ -194,10 +194,10 @@ ggplot(E.grid.wide[rule != "Average of all",], aes (E12.diff, E13.diff, colour =
                             strip.background = element_rect(fill=NA)) + 
   scale_colour_manual(values = c("sienna1", "firebrick", "dodgerblue2", "black")) + 
   labs(y=expression(E[1]-E[3]), x =expression(E[1]-E[2]), colour = "Which chosen")
-ggsave("rulesfinished.pdf")
+ggsave("rulesfinished.png")
 
 
-N <- 10000
+N <- 100000
 sigma <- 1
 X <- data.table(x=rnorm(N, sd=sigma), y=rnorm(N, sd=sigma), z=rnorm(N, sd=sigma))
 X[,x.minus.y:=x-y]
@@ -209,7 +209,10 @@ p1 <- ggplot(X, aes(x.minus.y, x.minus.z))  + theme_bw() +
   geom_hline(aes(yintercept = 0)) + 
   coord_fixed()+ geom_point(size = 1, colour = "mediumslateblue", alpha = 0.1)+
   geom_segment(data=arrowdata1, mapping=aes(x=x, y=y, xend=vx, yend=vy), col = "maroon4",arrow=arrow(), size = 1)+
-  labs(y=expression(E[1]-E[3]), x =expression(E[1]-E[2])) + geom_density_2d(colour = "firebrick4")
+  labs(y=expression(E[1]-E[3]), x =expression(E[1]-E[2])) + geom_density_2d(colour = "firebrick4")+
+  theme(axis.title.x =  element_text(margin = margin(t = 20, r = 0, b = 0, l = 0)),
+  axis.title.y =  element_text(margin = margin(t = 0, r = 20, b = 0, l = 0)))
+  #theme(plot.margin=unit(c(1,1,1,2),"cm"))
 
 X[,x.minus.y.z.av:=x-(y+z)/2]
 X[,z.minus.y.over.2:=(z-y)/2]
@@ -220,14 +223,22 @@ p2 <- ggplot(X, aes(x.minus.y.z.av, z.minus.y.over.2))  + theme_bw() +
   geom_hline(aes(yintercept = 0)) + 
   coord_fixed()+ geom_point(size = 1, colour = "mediumslateblue", alpha = 0.1)+
   geom_segment(data=arrowdata2, mapping=aes(x=x, y=y, xend=vx, yend=vy), col = "maroon4",arrow=arrow(), size = 1)+
-  labs(y=expression(frac(E[2]-E[3],2)), x =expression(E[1]-frac(E[2]+E[3],2)))+ geom_density_2d(colour = "firebrick4")
+  labs(y=expression(frac(E[2]-E[3],2)), x =expression(E[1]-frac(E[2]+E[3],2)))+ 
+  geom_density_2d(colour = "firebrick4")
 
 library(gridExtra)
 margin = theme(plot.margin = unit(c(0,0,0,0), "cm"))
 grid.arrange(grobs = lapply(p1, "+", p2, margin))
 
+# gA <- ggplotGrob(p1)
+# gB <- ggplotGrob(p2)
+# maxWidth = grid::unit.pmax(gA$widths[2:5], gB$widths[2:5])
+# gA$widths[2:5] <- as.list(maxWidth)
+# gB$widths[2:5] <- as.list(maxWidth)
+# grid.arrange(gA, gB, ncol=2)
+
 p3 <- grid.arrange(p1,p2, ncol = 2)
-ggsave("rotate.pdf")
+#ggsave("rotate.png")
 ########################################
 
 ##############
@@ -348,7 +359,7 @@ plot.xy.grid <- function(xy.grid, grid) {
 
 #attention <- c(1,1,1,1,1,1,1,1)
 #attention <- rep(3, 8)# Which alternative is attended in each frame
-attention <- c(1,1,2,2,2,3,3,3)
+attention <- c(1,1,2,2,2,3,3)
 grid <- list(spacing=0.1, x=list(lwr=-2.5, upr=1.5), y=list(lwr=-1.5, upr=1.5))
 
 xy.grid <- make.xy.grid(grid)
@@ -382,28 +393,36 @@ p2 <- ggplot(probcurves, aes(f,prob, group = finished, col = finished)) + theme_
   geom_line(size = 1)+
   scale_colour_manual(values = c("black", "sienna1","firebrick","dodgerblue2")) +
   labs(colour = "Finished", y = "Probability", x = "Time step") + 
-  theme(text = element_text(size = 20))
+  theme(text = element_text(size = 20))+ theme(aspect.ratio = 0.62)+
+  theme(plot.margin = unit(c(0.1,0.1,0.1,0.1), "cm"))
 
-p1 <- ggplot(to.plot[f > 0,], aes(x, y)) + geom_tile(aes( fill=prob),alpha = 0.5) + 
-  geom_point(aes(col = finished), alpha = 0.2) + theme_bw() + 
-  facet_wrap(~ f, ncol = 4) +
-  scale_colour_manual(values = c("black", "sienna1","firebrick","dodgerblue2"))+ 
-  scale_fill_gradient(high = "darkorange1", low = "midnightblue")+ 
-  labs(fill = "Probability", colour = "Finished",
-       y=expression(frac(E[2]-E[3],2)), x =expression(E[1]-frac(E[2]+E[3],2)))+
-  theme(text = element_text(size = 25))
+# p1 <- ggplot(to.plot, aes(x, y)) + geom_tile(aes( fill=prob),alpha = 0.5) + 
+#   geom_point(aes(col = finished), alpha = 0.2) + theme_bw() + 
+#   facet_wrap(~ f, ncol = 4) +
+#   scale_colour_manual(values = c("black", "sienna1","firebrick","dodgerblue2"))+ 
+#   scale_fill_gradient(high = "darkorange1", low = "midnightblue")+ 
+#   labs(fill = "Probability", colour = "Finished",
+#        y=expression(frac(E[2]-E[3],2)), x =expression(E[1]-frac(E[2]+E[3],2)))+
+#   theme(text = element_text(size = 25))
 
 to.plot[, Time.step := paste("Time step", f)]
 
-p1 <- ggplot(to.plot[f > 0,], aes(x, y)) + geom_tile(aes( fill=prob),alpha = 0.5) + 
+p1 <- ggplot(to.plot, aes(x, y)) + geom_tile(aes( fill=prob),alpha = 0.5) + 
   geom_point(aes(col = finished), alpha = 0.3) + theme_bw() + 
   facet_wrap(~ Time.step, ncol = 4) +
   scale_colour_manual(values = c("black", "sienna1","firebrick","dodgerblue2"))+ 
-  scale_fill_gradient(high = "yellow", low = "navyblue")+ 
+  #scale_fill_gradient(high = "yellow", low = "navyblue")+ 
+  scale_fill_gradientn(values=c(1, 0.75, 0.5, 0.25, 0.1, 0.05, 0.01, 0.008, 0.006, 0.004, 0.002, 0.001, 0.0005,0),
+                       colours=c(rev(c("navyblue", "darkblue","blue4", "blue3","royalblue", "royalblue1", "royalblue2",
+                                 "cornflowerblue","dodgerblue", "dodgerblue1", "dodgerblue2", "dodgerblue3", "dodgerblue4")), "orange"))+
+                      
   labs(fill = "Probability", colour = "Finished", y= "", x = "")+
   theme(text = element_text(size = 20),
-        strip.background = element_rect(fill=NA))+ guides(colour=FALSE)
+        strip.background = element_rect(fill=NA))+ guides(colour=FALSE) + theme(aspect.ratio = 0.9)+
+  theme(plot.margin = unit(c(0.1,0.1,0.1,0.1), "cm"))
 
+
+#grid.arrange(grobs = lapply(pl, "+", margin))
 
 p3 <- grid.arrange(p1,p2, ncol = 1)
 
@@ -411,7 +430,7 @@ p3 <- grid.arrange(p1,p2, ncol = 1)
 ########################
 rm(list=ls())
 library(data.table)
-load("C:/Anna/grid_search/NM_results.RData")
+load("NM_results.RData")
 grid_results_NM_second <- data.table(rbind(
   t(sapply(1:50, function (x) unlist(pars_divided_sec[[x]])[c(1,2,3,4)])),
   t(sapply(1:50, function (x) unlist(pars_range_sec[[x]])[c(1,2,3,4)])),
@@ -449,7 +468,7 @@ xtable(grid_results_NM_second[, -c("Subjectno")],type = "latex")
 #         mapping=ggplot2::aes(colour = Type))
 round(grid_results_NM_second[ , lapply(.SD, median), .SDcols = colnames(grid_results_NM_second)[3:14]],2)
 
-load("C:/Anna/aDDM_exact/really_finalfinal_triangle/Results_finalfinal.RData")
+load("Results_finalfinal.RData")
 setnames(results, c("V1", "V2", "V3"), c("theta_NM", "sigma_NM", "soi_NM"))
 table(results[, Type[which.max(V4)] , by = Subjno][,V1])
 
@@ -487,18 +506,13 @@ library(gridExtra)
 library(data.table)
 library(lattice)
 library(grid)
-setwd("C:/Anna/addm_writeup")
-load("merged_and_cleaned.RData")
-#source("simulations.R")
-# complete_fixations[, no := as.numeric(paste0(sort(c(Item1_rating, Item2_rating, Item3_rating)),collapse = "")), by = 1:nrow(complete_fixations)]
-# complete_fixations[, diff12 := sort(c(Item1_rating, Item2_rating, Item3_rating),decreasing = TRUE)[1] - 
-#                      sort(c(Item1_rating, Item2_rating, Item3_rating),decreasing = TRUE)[2], by = 1:nrow(complete_fixations)]
-# complete_fixations[, diff23 := sort(c(Item1_rating, Item2_rating, Item3_rating),decreasing = TRUE)[2] - 
-#                      sort(c(Item1_rating, Item2_rating, Item3_rating),decreasing = TRUE)[3], by = 1:nrow(complete_fixations)]
-
-
-
 source("simulations.R")
+setwd("C:/Anna/thesis/ADDM")
+load("merged_and_cleaned.RData")
+
+
+
+
 Subj <- function(obj) {
   range <- sapply(obj, function(x) (x-min(obj))/(max(obj)-min(obj)))
   max <- sapply(obj, function(x) x/max(obj))
@@ -506,6 +520,13 @@ Subj <- function(obj) {
   obj <- sapply(obj, function(x) x/7)
   cbind(obj,range,max,rank)
 }
+
+
+complete_fixations[, Best.rating := c(Item1_rating, Item2_rating, Item3_rating)[best], by = 1:nrow(complete_fixations)]
+complete_fixations[, Middle.rating := c(Item1_rating, Item2_rating, Item3_rating)[middle], by = 1:nrow(complete_fixations)]
+complete_fixations[, Worst.rating := c(Item1_rating, Item2_rating, Item3_rating)[worst], by = 1:nrow(complete_fixations)]
+complete_fixations[, valueset := paste(c(Worst.rating, Middle.rating, Best.rating), collapse = ""), by = 1:nrow(complete_fixations)]
+complete_fixations[, which.chosen := Which.chosen]
 
 
 get.simulations <- function(item1, item2, item3, speed.of.int,noise, no.sim, which) {
@@ -547,65 +568,162 @@ return(counts)
 # return(plot)
 }
 load("exp2_choiceRT.RData")
+
+ all_data[, valueset2 := paste(sort((c(item1, item2, item3)-10)/10),  collapse = ""), by = 1:nrow(all_data)]
+ all_data[, Item1_rating := (item1-10)/10, by = 1:nrow(all_data)]
+ all_data[, Item2_rating := (item2-10)/10, by = 1:nrow(all_data)]
+ all_data[, Item3_rating := (item3-10)/10, by = 1:nrow(all_data)]
+
 #get empirical choice predictions
 #item values are defined by experiment 1
-get.empirical <- function(item1, item2, item3, which.exp) {
-  values <- matrix(c(item1, item2, item3), ncol = 2, byrow = T)
-  if (which.exp == 2) {
-    values <- values*10 + 10
-    data <- all_data[valueset == paste(values[,1], collapse = "") | valueset == paste(values[,2], collapse = ""),]
-  } else {
-    data <- complete_fixations[valueset == paste(values[,1], collapse = "") | valueset == paste(values[,2], collapse = ""),]
-  }
-  counts <- data[,.N, .(valueset, which.chosen)]
-  counts <- merge(data.table(expand.grid(valueset = unique(counts$valueset), which.chosen = c("best", "worst", "middle"))),
-                  counts, by = c("valueset", "which.chosen"), all.x = T)
+ setnames(complete_fixations, "valueset", "valueset2")
+get.empirical <- function(data) {
+  values <- unique(all_data$valueset2)
+  data <- data[valueset2 %in% values, ]
+  counts <- data[,.N, .(valueset2, which.chosen)]
+  counts <- merge(data.table(expand.grid(valueset2 = unique(counts$valueset2), which.chosen = c("best", "worst", "middle"))),
+                  counts, by = c("valueset2", "which.chosen"), all.x = T)
   counts[is.na(N), N:=0]
-  counts <- counts[order(valueset, which.chosen)]
+  counts <- counts[order(valueset2, which.chosen)]
   
   counts <- cbind(counts, rbind(MultinomCI(counts[1:3,N], conf.level=0.95, method="sisonglaz"),
-                                MultinomCI(counts[4:6,N], conf.level=0.95, method="sisonglaz")))
+                                MultinomCI(counts[4:6,N], conf.level=0.95, method="sisonglaz"),
+                                MultinomCI(counts[7:9,N], conf.level=0.95, method="sisonglaz"),
+                                MultinomCI(counts[10:12,N], conf.level=0.95, method="sisonglaz"),
+                                MultinomCI(counts[13:15,N], conf.level=0.95, method="sisonglaz"),
+                                MultinomCI(counts[16:18,N], conf.level=0.95, method="sisonglaz"),
+                                MultinomCI(counts[19:21,N], conf.level=0.95, method="sisonglaz")))
   return(counts)
 }
 
+empirical <- get.empirical(all_data)
+
 get.simulations(c(1,4), c(2,5), c(4,7), 0.1, 0.1, 1000, 1)
-get.empirical(c(1,4), c(2,5), c(4,7),1)
+
 #find best fitting parameter set for each value transformation rule
 #based on the empirical fit to data from experiment 2
 #say there's a 5x5x5 parameter grid
 #pick best fitting for each rule and then use that for the qualitative comparison
-param.grid <- data.table(expand.grid(soi = c(0.15, 0.25, 0.35, 0.45, 0.55),
-                                     sigma = c(0.15, 0.25, 0.35, 0.45, 0.55),
-                                     valtr = c(1,2,3,4)))
+# param.grid <- data.table(expand.grid(soi = c(0.15, 0.25, 0.35, 0.45, 0.55),
+#                                      sigma = c(0.15, 0.25, 0.35, 0.45, 0.55),
+#                                      valtr = c(1,2,3,4)))
 
 #function that calculates loglik for one value transformation rule and parameter pair
-get.loglik <- function(valtr, soi, sigma) {
+setnames(empirical, "est", "est2")
+get.sse <- function(par, valtr, data) {
+ sigma <- par[1]
+  soi <- par[2]
+# valtr <- 1
+# data <- all_data
+  
  simulations <-  rbind(get.simulations(c(1,4), c(2,5), c(4,7), noise = sigma, speed.of.int = soi, 10000, valtr),
         get.simulations(c(1,2), c(2,4), c(3,6), noise = sigma, speed.of.int = soi, 10000, valtr),
         get.simulations(c(1,1), c(3,6), c(7,7), noise = sigma, speed.of.int = soi, 10000, valtr),
         get.simulations(c(1,5), c(6,6), c(7,7), noise = sigma, speed.of.int = soi, 10000, valtr))
-  
- empirical <- rbind(get.empirical(c(1,4), c(2,5), c(4,7),2),
-                    get.empirical(c(1,2), c(2,4), c(3,6),2),
-                    get.empirical(c(1,1), c(3,6), c(7,7),2),
-                    get.empirical(c(1,5), c(6,6), c(7,7),2))
- setnames(empirical, "est", "est2")
- 
- overall <- cbind(simulations, empirical)
- return(overall[, sum(log(abs(est-est2)))])
+
+ simulations[, Which.chosen := tolower(Which.chosen)]
+
+ overall <- merge(simulations[, c("valueset", "Which.chosen", "est")],
+                  empirical[, c("valueset2", "which.chosen", "est2")],
+                  by.x = c("valueset", "Which.chosen"),
+                  by.y = c("valueset2", "which.chosen"),
+                  all.x = T)
+ return(overall[, sum((est-est2)^2)])
 }
 
-param.grid[, loglik := get.loglik(valtr = valtr, soi = soi, sigma = sigma), by = 1:nrow(param.grid)]
-best <- param.grid[, .SD[which.min(loglik)], .(valtr)]
+
+
+
+# res1 <- optim(par = c(0.1, 0.1), fn = get.sse, data = all_data, valtr =1, control = list(trace = 6, maxit = 150))
+# res1 <- optim(par = res1$par, fn = get.sse, data = all_data, valtr =1, control = list(trace = 6, maxit = 150))
+# 
+# 
+# res2 <- optim(par = c(0.1, 0.1), fn = get.sse, data = all_data, valtr =2, control = list(trace = 6, maxit = 150))
+# res2 <- optim(par = res2$par, fn = get.sse, data = all_data, valtr =2, control = list(trace = 6, maxit = 150))
+# 
+# 
+# res3 <- optim(par = c(0.1, 0.1), fn = get.sse, data = all_data, valtr =3, control = list(trace = 6, maxit = 150))
+# res3 <- optim(par = res3$par, fn = get.sse, data = all_data, valtr =3, control = list(trace = 6, maxit = 150))
+# 
+# 
+# res4 <- optim(par = c(0.1, 0.1), fn = get.sse, data = all_data, valtr =4, control = list(trace = 6, maxit = 150))
+# res4 <- optim(par = res4$par, fn = get.sse, data = all_data, valtr =4, control = list(trace = 6, maxit = 150))
+
+#res1 0.11902563 0.08594647
+#res2 0.14728225 0.05644857
+#res3 0.12789600 0.07237432
+#res4 0.15398266 0.06149204
+
+
+#param.grid[, loglik := get.loglik(valtr = valtr, soi = soi, sigma = sigma), by = 1:nrow(param.grid)]
+#best <- param.grid[, .SD[which.min(loglik)], .(valtr)]
+#######################MAXIMUM LIKELIHOOD FOR EACH VALUE TRANSFORMATION RULE#####################
+
+# all_data[, valueset2 := paste(sort((c(item1, item2, item3)-10)/10),  collapse = ""), by = 1:nrow(all_data)]
+# all_data[, Item1_rating := (item1-10)/10, by = 1:nrow(all_data)]
+# all_data[, Item2_rating := (item2-10)/10, by = 1:nrow(all_data)]
+# all_data[, Item3_rating := (item3-10)/10, by = 1:nrow(all_data)]
+# all_data <- cbind(all_data, t(apply(all_data[,c('Item1_rating','Item2_rating','Item3_rating'), with = FALSE],1,Subj)))
+# setnames(all_data, old = c('V1','V2','V3','V4','V5','V6','V7','V8','V9','V10','V11','V12'), new =  c('Item1_obj', 'Item2_obj', 'Item3_obj', 'Item1_range','Item2_range', 'Item3_range', 'Item1_max', 'Item2_max', 'Item3_max','Item1_rank', 'Item2_rank', 'Item3_rank'))
+# ##
+# #create a function that calculates the probability
+# 
+# 
+# 
+# calcprob <- function(valueset, noise, soi, nosim) {
+#   
+# boo <- get.sim(, noise, soi, nosim)
+# probs <- table(boo$Chosen)/nosim
+# return(probs)
+# #  ifelse(chosen %in% names(probs), as.numeric(probs[which(names(probs) == chosen,0)]),0)
+# }
+# 
+# 
+# 
+# 
+# sum(log(mapply(calcprob, item1 = as.vector(all_data$Item1_obj), item2 = as.vector(all_data$Item2_obj),
+#                item3 = as.vector(all_data$Item3_obj), chosen = as.vector(all_data$Chosenitem),nosim = 100,
+#                MoreArgs = list(noise = 0.1, soi = 0.1))))
+# 
+# log.likelihood <- function(p, type, no.of.sim) {
+#   sigma <- p[1]
+#   soi <- p[2]
+#   if (type == "Objective") {
+#     sum(log(mapply(calcprob, item1 = as.vector(all_data$Item1_obj), item2 = as.vector(all_data$Item2_obj),
+#                    item3 = as.vector(all_data$Item3_obj), chosen = as.vector(all_data$Chosenitem),nosim = no.of.sim,
+#                    MoreArgs = list(noise = sigma, soi = soi))))
+#         } else if  (type == "Max") {
+#         sum(log(mapply(calcprob, item1 = as.vector(all_data$Item1_max), item2 = as.vector(all_data$Item2_max),
+#                        item3 = as.vector(all_data$Item3_max), chosen = as.vector(all_data$Chosenitem),nosim = no.of.sim,
+#                        MoreArgs = list(noise = sigma, soi = soi))))  
+#         } else if  (type == "Range") {
+#         sum(log(mapply(calcprob, item1 = as.vector(all_data$Item1_range), item2 = as.vector(all_data$Item2_range),
+#                          item3 = as.vector(all_data$Item3_range), chosen = as.vector(all_data$Chosenitem),nosim = no.of.sim,
+#                          MoreArgs = list(noise = sigma, soi = soi))))  
+#         } else if  (type == "Rank") {
+#         sum(log(mapply(calcprob, item1 = as.vector(all_data$Item1_rank), item2 = as.vector(all_data$Item2_rank),
+#                              item3 = as.vector(all_data$Item3_rank), chosen = as.vector(all_data$Chosenitem),nosim = no.of.sim,
+#                              MoreArgs = list(noise = sigma, soi = soi))))  
+#                 } 
+# }
+
 ########################################################################
 #for each choice set man
-setwd("C:/Anna/addm_writeup")
+setwd("C:/Anna/thesis/ADDM")
 load("merged_and_cleaned.RData")
+# complete_fixations[, Best.rating := c(Item1_rating, Item2_rating, Item3_rating)[best], by = 1:nrow(complete_fixations)]
+# complete_fixations[, Middle.rating := c(Item1_rating, Item2_rating, Item3_rating)[middle], by = 1:nrow(complete_fixations)]
+# complete_fixations[, Worst.rating := c(Item1_rating, Item2_rating, Item3_rating)[worst], by = 1:nrow(complete_fixations)]
+# complete_fixations[, valueset := paste(c(Worst.rating, Middle.rating, Best.rating), collapse = ""), by = 1:nrow(complete_fixations)]
+# complete_fixations[, which.chosen := Which.chosen]
+
+
 complete_fixations[, Best.rating := c(Item1_rating, Item2_rating, Item3_rating)[best], by = 1:nrow(complete_fixations)]
 complete_fixations[, Middle.rating := c(Item1_rating, Item2_rating, Item3_rating)[middle], by = 1:nrow(complete_fixations)]
 complete_fixations[, Worst.rating := c(Item1_rating, Item2_rating, Item3_rating)[worst], by = 1:nrow(complete_fixations)]
 complete_fixations[, valueset := paste(c(Worst.rating, Middle.rating, Best.rating), collapse = ""), by = 1:nrow(complete_fixations)]
 complete_fixations[, which.chosen := Which.chosen]
+setnames(complete_fixations, "valueset", "valueset2")
 
 library(Hmisc)
 
@@ -613,10 +731,10 @@ make.plot <- function(item1, item2, item3) {
   # item1 <- c(1,5)
   # item2 <- c(6,6)
   # item3 <- c(7,7)
-  plot1 <- get.simulations(item1, item2, item3, speed.of.int = 0.35, noise = 0.25, 100000, 1)
-  plot2 <- get.simulations(item1, item2, item3, speed.of.int = 0.45, noise = 0.45, 100000, 2)
-  plot3 <- get.simulations(item1, item2, item3, speed.of.int = 0.55, noise = 0.35, 100000, 3)
-  plot4 <- get.simulations(item1, item2, item3, speed.of.int = 0.15, noise = 0.25, 100000, 4)
+  plot1 <- get.simulations(item1, item2, item3, speed.of.int = 0.09, noise = 0.12, 100000, 1)
+  plot2 <- get.simulations(item1, item2, item3, speed.of.int = 0.06, noise = 0.15, 100000, 2)
+  plot3 <- get.simulations(item1, item2, item3, speed.of.int = 0.07, noise = 0.13, 100000, 3)
+  plot4 <- get.simulations(item1, item2, item3, speed.of.int = 0.06, noise = 0.15, 100000, 4)
   values <- data.table(rbind(t(Subj(c(item1[1],item2[1],item3[1]))),
                              t(Subj(c(item1[2],item2[2],item3[2])))))
   
@@ -629,7 +747,8 @@ make.plot <- function(item1, item2, item3) {
   p1 <- ggplot(plot1, aes(x= Which.chosen, y = est, fill=factor(valueset))) + theme_bw()+
     geom_bar(stat="identity", position="dodge") + ylim(c(0,1)) + theme(legend.text=element_text(size=12)) +
     #  geom_errorbar(aes(ymax = upr.ci, ymin = lwr.ci), position = "dodge") + 
-    labs(title=paste("Global Max,\n",objdiv[1], objdiv[2], objdiv[3], "\n",objdiv[4], objdiv[5], objdiv[6]),fill="") +
+    #labs(title=paste("Global Max,\n",objdiv[1], objdiv[2], objdiv[3], "\n",objdiv[4], objdiv[5], objdiv[6]),fill="") +
+    labs(title=paste("\nGlobal Max"),fill="") +
     theme(plot.title = element_text(size=13,hjust=0.5)) + theme(legend.position="bottom") + ylab(c(" ")) + 
     scale_x_discrete(labels=c("1" = "Worst", "2" = "Middle", "3" = "Best")) +xlab("") +
     scale_fill_manual(values=c("darkorange2", "mediumpurple4"))+ 
@@ -639,7 +758,8 @@ make.plot <- function(item1, item2, item3) {
   p4 <- ggplot(plot2, aes(x= Which.chosen, y = est, fill=factor(valueset))) + theme_bw()+
     geom_bar(stat="identity", position="dodge") + ylim(c(0,1))  + theme(legend.text=element_text(size=12)) + 
     #   geom_errorbar(aes(ymax = upr.ci, ymin = lwr.ci), position = "dodge") + 
-    labs(title=paste("Range,\n",range[1], range[2], range[3], "\n",range[4], range[5], range[6]),fill="")+
+    #labs(title=paste("Range,\n",range[1], range[2], range[3], "\n",range[4], range[5], range[6]),fill="")+
+    labs(title=paste("\nRange"),fill="") +
     theme(plot.title = element_text(size=13,hjust=0.5))+ ylab(c(" "))+ 
     scale_x_discrete(labels=c("1" = "Worst", "2" = "Middle", "3" = "Best")) +xlab("")+
     scale_fill_manual(values=c("darkorange2", "mediumpurple4"))+
@@ -650,7 +770,8 @@ make.plot <- function(item1, item2, item3) {
   p2 <- ggplot(plot3, aes(x= Which.chosen, y = est, fill=factor(valueset))) + theme_bw()+
     geom_bar(stat="identity", position="dodge") + ylim(c(0,1))  + theme(legend.text=element_text(size=12)) +
     #   geom_errorbar(aes(ymax = upr.ci, ymin = lwr.ci), position = "dodge") +
-    labs(title=paste("Local Max,\n",max[1], max[2], max[3], "\n",max[4], max[5], max[6]),fill="")+
+    #labs(title=paste("Local Max,\n",max[1], max[2], max[3], "\n",max[4], max[5], max[6]),fill="")+
+    labs(title=paste("\nLocal Max"),fill="") +
     theme(plot.title =element_text(size=13,hjust=0.5))+ ylab(c(" "))+ 
     scale_x_discrete(labels=c("1" = "Worst", "2" = "Middle", "3" = "Best")) +xlab("")+
     scale_fill_manual(values=c("darkorange2", "mediumpurple4"))+
@@ -662,7 +783,8 @@ make.plot <- function(item1, item2, item3) {
   p3 <- ggplot(plot4, aes(x= Which.chosen, y = est, fill=factor(valueset))) + theme_bw()+
     geom_bar(stat="identity", position="dodge") + ylim(c(0,1))  + theme(legend.text=element_text(size=12)) +
     #  geom_errorbar(aes(ymax = upr.ci, ymin = lwr.ci), position = "dodge") +
-    labs(title=paste("Rank,\n",rank[1], rank[2], rank[3], "\n",rank[4], rank[5], rank[6]),fill="")+
+    #labs(title=paste("Rank,\n",rank[1], rank[2], rank[3], "\n",rank[4], rank[5], rank[6]),fill="")+
+    labs(title=paste("\nRank"),fill="") +
     theme(plot.title =element_text(size=13,hjust=0.5))+ ylab(c(" "))+ 
     scale_x_discrete(labels=c("1" = "Worst", "2" = "Middle", "3" = "Best")) +xlab("")+
     scale_fill_manual(values=c("darkorange2", "mediumpurple4"))+
@@ -671,14 +793,21 @@ make.plot <- function(item1, item2, item3) {
           plot.title = element_text(size=18))
   
   
-  plot6 <- get.empirical(item1,item2, item3,2)
-  plot6[, Which.chosen := capitalize(which.chosen)]
-  plot6[, Which.chosen := factor(Which.chosen, levels = c("Worst", "Middle", "Best"))]
-  plot5 <- get.empirical(item1,item2, item3,1)
+  
+ 
+
+  plot5 <- get.empirical(complete_fixations)
+  plot5 <- plot5[valueset2 == paste(c(item1[1], item2[1], item3[1]), collapse = "")| 
+         valueset2 == paste(c(item1[2], item2[2], item3[2]), collapse = ""),]
   plot5[, Which.chosen := capitalize(which.chosen)]
   plot5[, Which.chosen := factor(Which.chosen, levels = c("Worst", "Middle", "Best"))]
+  plot6 <- get.empirical(all_data)
+  plot6 <- plot6[valueset2 == paste(c(item1[1], item2[1], item3[1]), collapse = "")| 
+                   valueset2 == paste(c(item1[2], item2[2], item3[2]), collapse = ""),]
+  plot6[, Which.chosen := capitalize(which.chosen)]
+  plot6[, Which.chosen := factor(Which.chosen, levels = c("Worst", "Middle", "Best"))]
   
-  p5 <- ggplot(plot5, aes(x = Which.chosen,y =est, fill=as.factor(valueset)))+ theme_bw()+
+  p5 <- ggplot(plot5, aes(x = Which.chosen,y =est, fill=as.factor(valueset2)))+ theme_bw()+
     geom_bar(stat="identity", position = "dodge") + geom_errorbar(aes(ymax = upr.ci, ymin = lwr.ci), position = position_dodge(width = 0.9), width=0.2) +
     ylim(c(0,1)) + labs(title = paste("Data\nExperiment 1"), fill = "") + theme(legend.position="bottom")  + theme(legend.text=element_text(size=12)) +
     theme(plot.title =element_text(size=13,hjust=0.5))+ ylab(c(" "))+ scale_x_discrete(labels=c("1" = "Worst", "2" = "Middle", "3" = "Best")) +xlab("")+
@@ -687,7 +816,7 @@ make.plot <- function(item1, item2, item3) {
     theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),text = element_text(size=20),
           plot.title = element_text(size=18))
   
-  p6 <- ggplot(plot6, aes(x = Which.chosen,y =est, fill=as.factor(valueset)))+ theme_bw()+
+  p6 <- ggplot(plot6, aes(x = Which.chosen,y =est, fill=as.factor(valueset2)))+ theme_bw()+
     geom_bar(stat="identity", position = "dodge") + geom_errorbar(aes(ymax = upr.ci, ymin = lwr.ci), position = position_dodge(width = 0.9), width=0.2) +
     ylim(c(0,1)) + labs(title = paste("Data\nExperiment 2"), fill = "") + theme(legend.position="bottom")  + theme(legend.text=element_text(size=12)) +
     theme(plot.title =element_text(size=13,hjust=0.5))+ ylab(c(" "))+ scale_x_discrete(labels=c("1" = "Worst", "2" = "Middle", "3" = "Best")) +xlab("")+

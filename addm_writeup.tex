@@ -19,6 +19,7 @@
 \usepackage{xcolor}
 \usepackage{float}
 \usepackage{array}
+\usepackage{placeins}
 \usepackage{setspace}
 \usepackage{multirow}
 \usepackage{gensymb}
@@ -50,6 +51,7 @@
 
 
 
+\graphicspath{{./ADDM}} 
 
 \section{Introduction} \label{chap1intro}
 
@@ -72,11 +74,14 @@ In this research project, our primary aim was to contrast these four different f
 
 There exists a wide range of choice models in cognitive psychology, many of which could serve as equally suitable theoretical frameworks to investigate context-dependence in value-based choice. In this research project, we chose to employ the theoretical framework of a hugely influential cognitive model of choice, the drift diffusion model (DDM; \citeNP{Ratcliff1978b}) and one of its popular extensions, the attentional drift diffusion model (aDDM; \citeNP{Krajbich2010}; \citeNP{Krajbich2011}), which incorporates the role of eye-movements within the standard DDM. 
 
-Using data from Experiment 1, we contrasted the four value transformation rules by fitting the aDDM with each transformation rule variant to the choice and reaction time data, and compared the resulting likelihoods. Following this quantitative test, we also conducted a qualitative comparison of the four rules, by contrasting choice proportions from both experiments with our predictions from simulating out the DDM with each rule variant. The next section gives a brief overview of the DDM and its extension, the aDDM.
+Considering a trinary choice context, our empirical strategy can be described as follows. First, we identified four choice set manipulation rules (some modification of the three items' values) for which these four value transformation rules (range, rank, local and global maximum normalisation) yielded different predictions regarding choice behaviour. Second, using data from a preferential choice experiment (Experiment 1), where the selected choice sets were derived from the choice set manipulation rules, we obtained the best fitting parameters for each participant and value transformation rule from fitting the aDDM to the choice and reaction time data. Using these parameter sets, we then compared the resulting log-likelihoods to identify the value transformation rule with the highest explanatory power for each participant. Finally, using data from the perceptual version of Experiment 1, Experiment 2, we derived the best fitting parameters for each value transformation rule from fitting the DDM to group-level choice data, and conducted a qualitative comparison of the four value transformation rules' overall ability to predict changes in the choice proportions across the four choice set manipulation rules. The next section gives a brief overview of the DDM and its extension, the aDDM.
+
+
+%Using data from Experiment 1, we contrasted the four value transformation rules by fitting the aDDM with each transformation rule variant to the choice and reaction time data, and compared the resulting likelihoods. Following this test, we also conducted a further comparison of the four rules, by contrasting choice proportions from Experiment 1 and 2 with our predictions from simulating out the DDM with each rule variant. The next section gives a brief overview of the DDM and its extension, the aDDM.
 
 
 
-\subsection{The drift diffusion model} \label{chap1addmexplain}
+\section{The drift diffusion model} \label{chap1addmexplain}
 
 
 How do people choose when facing multiple options? What happens exactly during the choice process, what is the cognitive mechanism underlying the comparison of the alternatives? These are the questions process models of choice seek to answer. In cognitive psychology, one particularly influential type of process models is the family of sequential sampling models. 
@@ -91,7 +96,7 @@ In the drift diffusion framework, a key parameter of the model is the drift rate
 \centering
 \caption{Illustration of the evidence accumulation process with options A and
 B.}
-\includegraphics[width=0.9\textwidth]{c1_randomwalk.pdf}
+\includegraphics[width=0.9\textwidth]{./c1_randomwalk.pdf}
 \label{fig:randomwalk}
 \end{figure}
 
@@ -147,7 +152,7 @@ As can be seen form Equations \ref{REA1}-\ref{REA3}, the aDDM implements a next 
 \captionsetup{justification=centering}
 \caption{Illustration of the evidence accumulation process in the aDDM framework
 ($\mathit{\mathit{r^{left}=4, r^{center}=3, r^{right}=6, d=0.0002}, \theta=0.3, \sigma^{2}=0.001}$)}
-\includegraphics[width=1\textwidth]{c1_driftrates.pdf}
+\includegraphics[width=1\textwidth]{./c1_driftrates.pdf}
 \label{fig:driftrates}
 \end{figure}
 
@@ -171,13 +176,15 @@ These modifications reflect changes in how the collected evidence samples are de
 In the following two experiments, our goal was to capture the idea of context sensitivity within the aDDM framework and probe the robustness of our findings. Experiment 1 was a preferential choice experiment, where participants were presented with choice triplets created from 100 movie posters, while their eye movements were recorded. In a separate rating stage that preceded the choice task, we obtained independent preference ratings from each participant on our set of 100 movies. Using these ratings as inputs to the four value transformation rules, we investigated how preferences change as a function of the choice context. In Experiment 2, we were interested in the same question, but we used perceptual stimuli, in the form of rapidly updating sequences of numbers drawn from a normal distribution with a fixed mean (taken from \citeNP{Tsetsos2012a}). Analogously, we used these fixed means as inputs to the value transformation rules.
 
 
-For a thorough investigation of the explanatory power of the four value transformation rules, we used two fundamentally different methodological approaches, a quantitative and qualitative approach. First, using data on eye movements during choice from Experiment 1, we obtained the best fitting set of aDDM model parameters for each valuation rule and participant, and compared the resulting likelihoods across the four value transformation rules. In order to obtain these best fitting parameters, we used two alternative methods to estimate the choice probabilities: a traditional simulations-based method, and a novel probability distribution method, which circumvents the problem arising from simulating out a stochastic model. Second, using a DDM simulations approach, we compared the choice proportion predictions for each value transformation rule with the results from Experiment 1 and 2, which served as a further qualitative test of the explanatory performance of each rule. 
+For a thorough investigation of the explanatory power of the four value transformation rules, we used two fundamentally different methodological approaches. First, using data on eye movements during choice from Experiment 1, we obtained the best fitting set of aDDM model parameters for each valuation rule and participant, and compared the resulting log-likelihoods across the four value transformation rules. In order to obtain these best fitting parameters, we used two alternative methods to estimate the choice probabilities: a traditional simulations-based method, and a novel probability distribution method, which circumvents the problem arising from simulating out a stochastic model. Second, using a DDM simulations approach, we compared the choice proportion predictions for each value transformation rule with the results from Experiment 1 and 2, which served as a further test of the explanatory performance of each rule. 
 
-Results from the model fitting approach suggest that subjective valuation mostly depends on the absolute value of the choice options, and, albeit to a lesser extent, also reflects  relative value sensitivity, a finding which was supported by the results from the qualitative comparison as well. We discuss these results in light of findings from neuroeconomic studies investigating the neural correlates of value-based choice.
+This way, our contribution is two-fold. First, we conduct a rigorous comparison of the performance of the four subjective transformation rules, delivering insights about context-dependent choice behaviour across multiple stimuli domains. Second, we develop a novel probability density evolution approach to fitting the aDDM to the data. 
+
+Results from the model fitting approach using data from Experiment 1 suggest that subjective valuation mostly depends on the absolute value of the choice options, and, albeit to a lesser extent, also reflects  relative value sensitivity, a finding which was supported by the results from Experiment 2  as well. We discuss these results in light of findings from neuroeconomic studies investigating the neural correlates of value-based choice.
 
 \section{Subjective Transformation Rules} \label{chap1subjtrexplained}
 
-We considered the four value transformation rules detailed in section \ref{chap1intro}: the range, rank, local, and global maximum rule. Each rule takes in three “objective values” $x_1, x_2, x_3$  (these are the “raw” independent preference ratings for each movie in Experiment 1, and the mean of each distribution from which the rapidly updating sequence of numbers are drawn in Experiment 2), and transforms these into normalised “subjective values” (required to fall between 0 and 1). 
+We considered the four value transformation rules detailed in Section \ref{chap1intro}: the range, rank, local, and global maximum rule. Each rule takes in three “objective values” $x_1, x_2, x_3$  (these are the “raw” independent preference ratings for each movie in Experiment 1, and the mean of each distribution from which the rapidly updating sequence of numbers are drawn in Experiment 2), and transforms these into normalised “subjective values” (required to fall between 0 and 1). 
 
  \textbf{Range Rule.} The range value reflects the stimulus' perceived distance from the stimulus with the lowest value as a proportion of the overall distance between the highest and lowest valued stimulus in the stimuli set. It captures the idea that valuation is sensitive to the highest and lowest value encountered (or, equivalently, to the overall range of values) in a given choice set. Formally, this can be described by the following equation:
  
@@ -188,7 +195,7 @@ Range_{i}=\frac{x_i - min(x_1,x_2,x_3)}{max(x_1,x_2,x_3)-min(x_1,x_2,x_3)}
  Note that the items with the lowest and highest original values are always assigned 0 and 1 respectively, while the middle item's value can vary between 0 and 1.
  
  
- \textbf{Rank Rule.} The rank rule also follows from RFT, and reflects the “frequency” of the stimuli, which can be translated as its ranked ordinal position in the choice set. The rank rule reflects a somewhat simpler mechanism of valuation, whereby the subjective value of an item is solely determined by the number of items with lower or higher values in the choice set, and the extent of the difference between item values does not matter. Formally, given an ordered set of three stimuli $x_1, x_2, x_3$ , the rank value of a stimuli is given by
+ \textbf{Rank Rule.} The rank rule also follows from RFT, and reflects the “frequency” of the stimuli, which can be translated as its ranked ordinal position in the choice set. The rank rule reflects a somewhat simpler mechanism of valuation, whereby the subjective value of an item is solely determined by the number of items with lower or higher values in the choice set, and the extent of the difference between item values does not matter. Formally, given an ordered set of three stimuli $x_1, x_2, x_3$ , the rank values of the stimuli are given by
  
 \begin{equation}
 Rank_{i}=\frac{i-1}{n-1}
@@ -217,7 +224,7 @@ Note that when an item in the current trial has the highest value in the whole o
 
 \section{Choice Set Manipulations} \label{chap1choicesetman}
 
-After identifying the four value transformation rules, the next step was to find a set of choice set manipulations for which these transformation rules (accommodated within an aDDM or DDM framework) produce different predictions about choice behaviour. A choice set manipulation represents some modification of the three options' objective values based on a certain rule (e.g. doubling each value, or adding a constant to each of them). The key idea is that the four value transformation rules differ in their predictions about how these choice set manipulations affect choice proportions, which allowed us to assess the empirical performance of each subjective transformation rule. 
+After identifying the four value transformation rules, the next step was to find a set of choice set manipulations for which these transformation rules (accommodated within an aDDM or DDM framework) produce different predictions about choice behaviour. A choice set manipulation represents some modification of the three options' objective values based on a certain rule (e.g. doubling each value, or adding a constant to each of them). The key idea is that the four subjective value transformation rules (range, rank, local and global maximum) differ in their predictions about how these choice set manipulations affect choice proportions, which allowed us to assess their relative empirical performance. 
 
 Based on a series of simulations, we chose to investigate the effect of the following four distinct choice set manipulations: adding the same constant to each of the three values, multiplying each value by a constant, and having a distant or a close second, and third value. Figure \ref{fig:choicesetmanip} shows the subjective values (these are required to fall between 0 and 1) derived from each transformation, assuming a raw value scale from 1 to 7. The orange dots are the original values, while the purple dots show the values after the transformation (for example, in the case of adding a constant, the original value set is 1,2,4, while the new values are 4,5,7).
 
@@ -225,18 +232,21 @@ Based on a series of simulations, we chose to investigate the effect of the foll
 \captionsetup{justification=centering}
 \centering
 \caption{Subjective values by choice set manipulation and value transformation rule. The four columns show each choice set manipulation, while the rows correspond to the four value transformation rules.}
-\includegraphics[width=1\textwidth]{explain.pdf}
+\includegraphics[width=1\textwidth]{./explain.pdf}
 \label{fig:choicesetmanip}
 \end{figure}
 
-Our original plan was to present participants with these seven distinct trinary choice sets (124, 457, 123, 246, 137, 167, 567) to maximise the discriminatory power of our experiments. However, due to an experimenter error, in Experiment 1, the displayed choice options were quasi-random, resulting in 84 unique choice sets instead of the originally planned seven. We nevertheless proceeded with fitting the aDDM to the data from Experiment 1, and had enough data for the relevant seven choice sets to conduct a qualitative comparison of choice behaviour in Experiment 1 and 2.
+These differences in the subjective values translate into differences in choice behaviour. When adding a constant to a set of values, the range and rank transformed values are unaffected, while the global maximum transformed values shift by a constant, therefore these three rules predict no change in choice behaviour. However, the local maximum rule predicts that the distance between the best and the other two values narrows, thereby reducing the relative choice share of the best option. Similarly, the range, rank and local maximum rule predict no change when values are multiplied by a constant, whereas the global maximum rule predicts that the best option becomes relatively more attractive compared to the other two. When increasing the value of the middle option (distant vs close second), the range and both maximum rules predict that relative share of the middle option increases, in contrast with the rank rule that predicts no change. Finally, the range rule and the two maximum rules predict that increasing the value of the worst option (distant vs close third) is going to increase or decrease the share of the best option, respectively, while the rank rule predicts no change in the relative choice proportions.
+
+
+Our original plan was to present participants with these seven distinct trinary choice sets (124, 457, 123, 246, 137, 167, 567) to maximise the discriminatory power of our experiments. However, due to an experimenter error, in Experiment 1, the displayed choice options were quasi-random, resulting in 84 unique choice sets instead of the originally planned seven. We nevertheless proceeded with fitting the aDDM to the data from Experiment 1, and had enough data for the relevant seven choice sets to conduct a further comparison of choice behaviour in Experiment 1 and 2.
 
 
 \section{Experiment 1}
 
 \subsection{Method} \label{chap1exp1method}
 
-Experiment 1 was a preferential choice experiment, where participants' eye movements were recorded during choice. Based on previous eye-tracking studies (e.g., \citeNP{Krajbich2010}; \citeNP{Krajbich2011}), we decided in advance that a sample of 50 participants should provide enough statistical power for our purposes \AT{Is this ok?}. To reach this sample size, we recruited sixty participants overall, out of which ten participants could not be eye-tracked. Participants were recruited through the University of Warwick's Research Participation System, and were paid £7.00 for taking part in the experiment. We did not record data on participants' gender, as we did not expect it to affect the results. Ethical approval was obtained from the Department of Psychology, University of Warwick.
+Experiment 1 was a preferential choice experiment, where participants' eye movements were recorded during choice. Based on previous eye-tracking studies (e.g., \citeNP{Krajbich2010}; \citeNP{Krajbich2011}), we decided in advance that a sample of 50 participants should provide enough statistical power for our purposes. To reach this sample size, we recruited sixty participants overall, out of which ten participants could not be eye-tracked. Participants were recruited through the University of Warwick's Research Participation System, and were paid £7.00 for taking part in the experiment. We did not record data on participants' gender, as we did not expect it to affect the results. Ethical approval was obtained from the Department of Psychology, University of Warwick.
 
 The experiment consisted of two parts. First, participants who signed up for the study were required to complete an online questionnaire, where they had to rate 110 movies on a scale from 1 to 7, based on how much they liked the given movie (1 being not at all and 7 being very much so). We also asked them whether they have seen the movies before. The rating task began with 10 test trials (these were the same movies for all participants), so that participants could familiarise themselves with the task and the range of movies they will be required to rate. Then, they were informed that the actual rating task is about to start. During this task, participants were presented with the 100 movies in a randomised order, and we instructed them to try to use the whole range of the scale as much as possible. This was important, because the second part of the experiment relied on these ratings, and could not be run without at least one movie for each rating. Some participants failed to do this, and so they were asked again to complete this task before coming to the lab for the second part of the experiment. Figure \ref{fig:ratingstask} shows an example trial from this task, which took about 15 minutes on average. 
 
@@ -244,18 +254,18 @@ The experiment consisted of two parts. First, participants who signed up for the
 \captionsetup{justification=centering}
 \centering
 \caption{Example rating task from the first part of Experiment 1. }
-\includegraphics[width=0.58\textwidth]{ratingstask.png}
+\includegraphics[width=0.58\textwidth]{./ratingstask.png}
 \label{fig:ratingstask}
 \end{figure}
 
 
-Those who successfully completed the first part were invited to the lab for the second part of the study. In the second part, participants were presented with 100 trinary sets of the pre-rated movies, and were asked to pick the one they liked the most on each trial by pressing the corresponding keyboard key (left, down, right arrow), while their eye movements were recorded at 500 Hz using an EyeLink 1000 (SR Research). The order of the choice triplets and the display order of the three movies in a given trial were both randomised. The eye tracker was calibrated after every 25 choices (four times overall over the course of the experiment), and each trial began only after participants fixated on a centrally presented fixation cross for 500 ms. Figure \ref{fig:exp1_movieschoice} shows an example trial from the second part of this experiment.
+Those who successfully completed the first part were invited to the lab for the second part of the study. In the second part, participants were presented with 100 trinary sets of the pre-rated movies, and were asked to pick the one they liked the most on each trial by pressing the corresponding keyboard key (left, down, right arrow), while their eye movements were recorded at 500 Hz using an EyeLink 1000 (SR Research). The order of the choice triplets and the display order of the three movies in a given trial were both randomised. The eye tracker was calibrated after every 25 choices (four times overall over the course of the experiment), and each trial began only after participants fixated on a centrally presented fixation cross for 500 ms. We did not add a text prompt to the screen to avoid additional visual distractions. Figure \ref{fig:exp1_movieschoice} shows an example trial from the second part of this experiment.
 
 \begin{figure}[htb!]
 \captionsetup{justification=centering}
 \centering
 \caption{Example choice task from the second part of Experiment 1. }
-\includegraphics[width=0.7\textwidth]{exp1_movieschoice.jpg}
+\includegraphics[width=0.7\textwidth]{./exp1_movieschoice.jpg}
 \label{fig:exp1_movieschoice}
 \end{figure}
 
@@ -278,15 +288,17 @@ As mentioned in section  \ref{chap1exp1method}, we had usable eye-tracking data 
 
 \section{Fitting the aDDM}
 
-\AT{Is this understandable? Most importantly, did I interpret it correctly?}
-Using data from Experiment 1, we wished to compare the four value transformation rules within the aDDM framework, on the basis of their respective likelihoods. When fitting the aDDM, the common approach is to fit the model on the group-level, and simulate out the choice process for all parameter set ($\theta$, the penalty on the unattended item, $\sigma$, the noise parameter, and $d$, the speed of integration) and preference rating combinations, with fixations sampled from the empirical distribution of fixations, conditional on the preference rating difference  (e.g., \citeNP{Krajbich2010}; \citeNP{Krajbich2011}; \citeNP{Fisher2017}). 
+Using data from Experiment 1, we wished to compare the four value transformation rules' explanatory power within the aDDM framework, on the basis of their respective log-likelihoods of producing each participant's data. To do this, we needed to establish a method for deriving choice probabilities, given a specific set of parameters. We used two fundamentally different methodological approaches to derive these probabilities. Below we first describe the standard model fitting approach used in the aDDM literature, and then we highlight how our empirical strategy constitutes an improvement compared to this standard approach.
+
+
+When fitting the aDDM, the common approach is to fit the model on the group-level, and simulate out the choice process for all parameter value set ($\theta$, the penalty on the unattended item, $\sigma$, the noise parameter, and $d$, the speed of integration) and preference rating combinations, with fixations sampled from the empirical distribution of fixations, conditional on the preference rating difference  (e.g., \citeNP{Krajbich2010}; \citeNP{Krajbich2011}; \citeNP{Fisher2017}). 
 
 Then, given a discrete number of reaction time bins, the number of simulations falling into each choice and reaction time bin can be calculated for all parameter and rating difference combinations, and the probability that a simulation trial finishes in a given choice and reaction time bin can be derived. To obtain the log-likelihood of the data for each parameter combination, these probabilities are multiplied by the number of empirical data points falling into the same choice and reaction time bin, and their logarithm is taken and summed up. One or two iterative grid searches can be carried out using this estimation method, resulting in the final estimate of the best fitting parameter values, and the corresponding log-likelihood.
 
 
-\AT{Fisher says: "The model requires a large amount of data to estimate the parameters accurately, and fitting them at the individual level would result in highly noisy estimates." Any thoughts on this?}
+Our empirical approach differs from this method in several respects. First, in contrast with their group-level approach, we derived the best fitting parameters for each subject to account for individual heterogeneity. Therefore, our primary aim was to find the best fitting parameter set and the corresponding log-likelihood value for each participant and transformation rule (of which there were 200, given 50 participants and four subjective value transformation rules) to determine which transformation rule yields the best fit for each participant. Second, to derive the most accurate estimate of the predicted probability of each trial falling into a given choice and reaction time bin, we used the eye movement pattern on that very trial (as opposed to probabilistically sampling it from an empirical distribution, conditional on the rating difference). Third, in addition to the grid search, we also used a Nelder-Mead optimization algorithm to find the best fitting parameter values for each participant and value transformation rule. Finally, we used 100,000 simulations to lessen the effect of noise (an inherent feature of the aDDM) and obtain more reliable choice probability estimates, whereas previous studies used between 1000 and 4000 simulations (e.g., \citeNP{Krajbich2011}; \citeNP{Fisher2017}).  
 
-Our empirical approach differs from this method in several respects. First, in contrast with their group-level approach, we derived the best fitting parameters for each subject to account for individual heterogeneity. Therefore, our primary aim was to find the best fitting parameter set and the corresponding likelihood value for each participant and transformation rule (of which there were 200, given 50 participants and four subjective value transformation rules) to determine which transformation rule yields the best fit for each participant. Second, to derive the most accurate estimate of the predicted probability of each trial falling into a given choice and reaction time bin, we used the eye movement pattern on that very trial (as opposed to probabilistically sampling it from an empirical distribution, conditional on the rating difference). Finally, to evaluate the robustness of our estimates as well as to circumvent a methodological issue stemming from applying a traditional simulations-based approach to a stochastic model, we also used a novel probability distribution-based approach to derive the best fitting parameter combinations and corresponding log-likelihoods for each participant and value transformation rule.
+In addition to these improvements, to evaluate the robustness of our estimates as well as to circumvent a methodological issue stemming from applying a traditional simulations-based approach to a stochastic model, we also used a novel probability distribution-based approach to derive the best fitting parameter combinations and corresponding log-likelihoods for each participant and value transformation rule.
 
 Before the parameter estimation, we discretized the eye movement data. To do so, we divided each trial into 200 ms bins, where each bin was one step in the evidence accumulation process assumed by aDDM. The fixated item in a bin was sampled probabilistically, based on the proportion of time spent on fixating on a given item in each bin. For example, if in one bin, 50 ms was spent on fixating on item 1, and 150 ms was spent on fixating on item 2, then in the simulations item 1 had a 25\%, while item 2 had a 75\% probability of being chosen as the fixated item in that bin. 
 
@@ -295,25 +307,29 @@ When fitting the aDDM for each value transformation rule, we used the transforme
 
 \subsection{Simulations method}
 
-To obtain the best fitting parameters for each participant and value transformation rule, we first used a traditional simulations-based method. Specifically, we simulated out each trial 100,000 times, and calculated the probability that the eventually chosen item was selected in the correct time bin. Note that there are two sources of variation in these simulations: the inherent noise in the accumulation process (captured by $\sigma$), and the non-deterministic fixation pattern arising from the transformation of the fixation data into time bins.
+To summarise the main novel aspects of our stochastic simulation approach, we model individual trials from individual participants (as opposed to deriving group-level parameter estimates), and use the eye movements specific to the very trial we are modelling (as opposed to randomly drawing it from the distribution of fixations from all trials). In addition, we find the best fitting parameter estimates through an optimization algorithm, and all probability estimates are based on 100,000 simulations of each trial.
+
+To obtain the relevant parameter sets for each participant and value transformation rule, we first simulated out each trial, and calculated the probability that the eventually chosen item was selected in the correct time bin. Note that there are two sources of variation in these simulations: the inherent noise in the accumulation process (captured by $\sigma$), and the non-deterministic fixation pattern arising from the transformation of the fixation data into time bins. 
+
 
 To find the best fitting parameter sets, we started off with a grid search with the following values: $\theta=\{0.2, 0.45, 0.6, 0.85, 1\}$, $\sigma=\{0.1, 0.14, 0.2, 0.28, 0.4\}$, $\textit{d}=\{0.1, 0.17, 0.31, 0.56, 1\}$, 125 parameter sets overall, for each participant and value transformation rule. These parameter values were chosen after an iterative process, ensuring that most participants' best fitting values fell in the middle of the range of the possible grid values. This was done to make sure that the algorithm does not have to move considerable lengths in the parameter space to find the best fitting parameter set in the subsequent optimization process.
 
 
-Upon obtaining the best fitting parameter set from the grid, we started a Nelder-Mead optimization algorithm with a maximum iteration number of 200, using the resulting parameter set from the grid search as starting points for each participant and value transformation rule. The same process was repeated once more using the results from the first Nelder-Mead optimization process as a starting point, to increase the probability that we find the parameter set that produces the highest likelihood of producing the data. 
+Upon obtaining the best fitting parameter set from the grid, we started a Nelder-Mead optimization algorithm with a maximum iteration number of 200, using the resulting parameter set from the grid search as starting points for each participant and value transformation rule. The same process was repeated once more using the results from the first Nelder-Mead optimization process as a starting point, to increase the probability that we find the parameter set that results in the highest log-likelihood of producing the data. 
 
-We initially used 100,000 simulations to lessen the effect of noise (an inherent feature of the aDDM) and obtain reliable estimates (previous studies used between 1000 and 4000 simulations, e.g., \citeNP{Krajbich2011}; \citeNP{Fisher2017}). However, an unanticipated effect of having such a high number of simulations was that trials that were not well predicted by the model ended up having a big effect on the Nelder-Mead process, indicating a non-smooth likelihood surface. 
+However, there is a methodological difficulty arising from the stochastic nature of the aDDM. Due to the inherent noise in the process, two runs of simulations of the same trial with the same parameter values naturally gives slightly different results. This is problematic if the estimated probability of the trial is generally low (near zero), as it can happen that in one simulation run, the estimated probability is a positive number, while in the next one it is zero. When taking the logarithm of all trial probabilities and summing them up, having just one trial with a zero probability results in a log-likelihood value of minus infinity. At the next simulation attempt, it is possible that the estimated probability for the same trial will be positive this time, and depending on the estimated probability of the rest of the trials, this can in turn result in a relatively high overall log-likelihood value. Such dramatic changes in the log-likelihood values can easily lead to the Nelder-Mead process getting stuck at a given point in the parameter space.
 
-For example, if there is just one trial for a participant that is very unlikely to occur with a given parameter set, whereas the rest of the trials are relatively likely to occur, then using such a high number of simulations can have a dramatic effect on the overall estimated likelihood for that participant and parameter combination, potentially changing it from minus infinity to a very high likelihood at the next simulation attempt. Such significant jumps in the likelihood surface can easily lead to the Nelder-Mead process getting stuck at a given point. 
-
-This is because the Nelder-Mead optimization method was initially developed for deterministic models, and it has been demonstrated that substantial noise in the underlying model can lead to false convergence (e.g., \citeNP{Chang2012}; \citeNP{BartonIvey1991}). While running the second Nelder-Mead did not lead to substantially different parameter estimates for most participants and value transformation rules, we still wanted to alleviate concerns about the validity of the simulations method, and decided to compare the results from the simulations with those obtained from an alternative, deterministic implementation of the aDDM.
+This is because the Nelder-Mead optimization method was initially developed for deterministic models, and it has been demonstrated that substantial noise in the underlying model can lead to false convergence (e.g., \citeNP{Chang2012}; \citeNP{BartonIvey1991}). While running the second Nelder-Mead did not lead to substantially different parameter estimates for most participants and value transformation rules, we still wanted to alleviate concerns about the validity of the simulations method, and decided to compare the results from the simulations approach with those obtained from an alternative, deterministic implementation of the aDDM.
 
 
 \subsection{Probability distribution method}
 
-To circumvent the problem arising from using such a high number of simulations, we utilised an alternative estimation method that is free of the inherent stochasticity within the aDDM framework. In short, our approach was to derive the probability distribution of the accumulation process over the relative evidence states ($E_{1}-E_{2}$ and $E_{1}-E_{3}$ from Equations \ref{Evidence1}-\ref{Evidence3} in section \ref{chap1addmexplain}, with $left, center, right$ changed to 1, 2, 3, respectively), for each time bin and parameter combination. This method allowed us to directly calculate the exact choice probability for each trial in our data. Our approach is an alternative to that used by \citeA{markovchain}, who approximated the diffusion process using Markov Chain Theory, and derived the transition probabilities between different evidence states. \AT{I feel like I say something about the relative merits of the two approaches..}
+To circumvent the problem arising from the stochastic nature of the aDDM, we utilised an alternative estimation method that is free of stochasticity. Rather than deriving the probability of the data through noisy simulation, we calculate it directly, by using a numerical evidence integration technique. This approach removes the problem of variable log-likelihood values, thus making the parameter search much easier.
 
-In order to restrict the finished relative evidence states (corresponding to combinations of $E_{1}$, $E_{2}$ and $E_{3}$, where the threshold had been reached, and one of the options had been chosen) to a bounded area within the relative evidence space, we chose to base our calculations on a ``best versus average of other two''  termination rule:
+
+ In short, our approach was to derive the probability distribution of the accumulation process over the relative evidence states ($E_{1}-E_{2}$ and $E_{1}-E_{3}$ from Equations \ref{Evidence1}-\ref{Evidence3} in section \ref{chap1addmexplain}, with $left, center, right$ changed to 1, 2, 3, respectively), for each time bin and parameter combination. This method allowed us to directly calculate the exact choice probability for each trial in our data. Our approach is conceptually equivalent to that used by \citeA{markovchain}, who approximated the diffusion process using Markov Chain Theory, and derived the transition probabilities between different evidence states. However, we apply this method to a more complex setting than described in \citeA{markovchain}, in that implementing the aDDM entails a trinary choice case, with variable drift rates within a trial (stemming from changes in attention). \AT{Is this ok?}
+
+We chose to base our calculations on a ``best versus average of other two''  termination rule:
 
 \begin{equation} \label{REA1pd}
 V_{t}^{1}=E_{t}^{1}-\frac{E_{t}^{2}+E_{t}^{3}}{2}
@@ -328,13 +344,13 @@ V_{t}^{2}=E_{t}^{2}-\frac{E_{t}^{1}+E_{t}^{3}}{2}
 V_{t}^{3}=E_{t}^{3}-\frac{E_{t}^{1}+E_{t}^{2}}{2}
 \end{equation}
 
-as opposed to the original ``best versus next best'' formulation seen in Equations \ref{REA1}-\ref{REA3} in section \ref{chap1addmexplain}. However, we did not expect this modification to have a dramatic effect on our results, since previous research had shown that the two rules yield very similar predictions (\citeNP{Krajbich2011}). However, using a ``best versus average of other two'' rule as opposed to a ``best versus next best'' results in a bounded area of the finished evidence states, expressed in terms of the relative evidence states ($E_{1}-E_{2}$ and $E_{1}-E_{3}$), demonstrated by Figure \ref{fig:rulesfinished}.
+as opposed to the original ``best versus next best'' formulation seen in Equations \ref{REA1}-\ref{REA3} in section \ref{chap1addmexplain}. However, we did not expect this modification to have a dramatic effect on our results, since previous research had shown that the two rules yield very similar predictions (\citeNP{Krajbich2011}). The reason why we preferred the ``best versus average of other two'' rule over the ``best versus next best'' rule is because it results in a bounded area of the finished evidence states (corresponding to combinations of $E_{1}$, $E_{2}$ and $E_{3}$, where the threshold had been reached, and one of the options had been chosen), defined in terms of the two relative evidence states ($E_{1}-E_{2}$ and $E_{1}-E_{3}$). This is illustrated by Figure \ref{fig:rulesfinished}.
 
 \begin{figure}[htp!]
 \captionsetup{justification=centering}
 \centering
 \caption{Finished evidence states with Next best and Average of other two termination rules.}
-\includegraphics[width=0.9\textwidth]{rulesfinished.pdf}
+\includegraphics[width=0.9\textwidth]{./rulesfinished.png}
 \label{fig:rulesfinished}
 \end{figure}
 
@@ -365,8 +381,8 @@ This covariance matrix is not diagonal, because the axes are correlated (due to 
 \begin{figure}[htp!]
 \captionsetup{justification=centering}
 \centering
-\caption{Demonstration of the correlation problem. The left panel shows the original axes, whereas the right panel shows the rotated axes with no correlation.}
-\includegraphics[width=1\textwidth]{rotate.pdf}
+\caption{Demonstration of the correlation problem. The left panel shows the original axes, and the right panel shows the rotated axes with no correlation.}
+\includegraphics[width=1\textwidth]{./rotate.png}
 \label{fig:rotate}
 \end{figure}
  
@@ -386,43 +402,51 @@ In Figure \ref{fig:rotate}, the angle of rotation is $\alpha = 45\degree$. Expre
 \displaystyle x' = E_{1}-\frac{E_{2}+E_{3}}{2}\\
 \displaystyle y' = \frac{E_{2}-E_{3}}{2}.\\
 \end{array} 
-\label{eq:axes1}
+\label{eq:axes3}
 \end{equation}
  
-As the right panel in Figure \ref{fig:rotate} demonstrates, this results in an ellipse whose axes are now parallel to the coordinate axes. In this transformed coordinate system, we can characterise the decision process as a multivariate normal distribution, whose movement along the relative evidence bins is governed by the model parameters. To save computation time, the possible evidence states were approximated by bins (the x evidence space spanned from -2.5 to 1.5 with spacing 0.1 in 41 bins, whereas the y evidence space spanned from -1.5 to 1.5 with spacing 0.1 in 31 bins, resulting in $31\cdot41 = 1271$ bins overall). Our aim is to calculate the probability distribution of the diffusion process over this grid for each time period in the decision process, which will allow us to directly derive the probability that an item is chosen at any given time point (by summing up the probability mass over the bins in which the item was chosen, see Figure \ref{fig:rulesfinished}).
+As the right panel in Figure \ref{fig:rotate} demonstrates, this results in an ellipse whose axes are now parallel to the coordinate axes. In this transformed coordinate system, we can characterise the decision process as a multivariate normal distribution, whose movement along the relative evidence bins is governed by the model parameters. To save computation time, the possible evidence states were approximated by bins (the x evidence space spanned from -2.5 to 1.5 with spacing 0.1 in 41 bins, whereas the y evidence space spanned from -1.5 to 1.5 with spacing 0.1 in 31 bins, resulting in $31\cdot41 = 1271$ bins overall). Our aim was to calculate the probability distribution of the diffusion process over this grid for each time period in the decision process, which allowed us to directly derive the probability that an item is chosen at any given time point (by summing up the probability mass over the evidence bins in which the item was chosen, see the finished evidence states in Figure \ref{fig:rulesfinished}).
 
-In each trial, at time step 0, the process starts from the central bin defined by $x = 0$ and $y = 0$, with probability density 1. At each subsequent time step, we will model the movement and diffusion of this probability mass by repeatedly multiplying the previous time period's probability mass over the grid with a transition matrix, determines the characteristics of the diffusion process through the model parameters. 
-
-This transition matrix has two components. The first component characterizes the diffusion of the probability density with $\sigma$ as the only input to a bivariate normal distribution with mean $\mu_x=0$ and $\mu_y=0$. From a computational perspective, this is done by taking each of the 1271 bins in the grid as the center of a bivariate normal distribution with standard deviation $\sigma$, and calculating the exact probability mass falling into each of the 1271 bins in the grid. We can calculate this probability vector for all our bins in the grid, which gives us a $1271\cdot1271$ transition matrix, where each entry is the transition probability from one bin to another. Starting with a probability mass entirely concentrated in the bin defined as $x = 0$ and $y = 0$ at time step 0, we can recursively multiply the resulting probability mass in each time step with this transition matrix. In absence of the second component, this process leads to a diffusion of the probability density around our starting point $x = 0$ and $y = 0$, corresponding to a diffusion process with no drift rate. 
-
-The second component is the drift rate, defined by $\theta$, $r$ and $d$, which governs the direction of the movement of the probability mass. The drift rate can be incorporated in the transition matrix by shifting the mean of the bivariate normal distributions. Because the drift rate varies depending on the attention pattern (through $\theta$), three transition matrices can be constructed, depending on which item is fixated. Taken together, through the model parameters, these two components define the transition probabilities over the relative evidence states, and determine the movement of the bivariate distribution in our grid.
-
-We can then derive the probability of choosing either of the options in at any given time period by summing up the probability mass entering the bins corresponding to the option's finished evidence states in that time step. Before moving to the next time period, all the probability mass over the finished evidence states are set to 0, allowing us to derive the probability that an option is chosen exactly in the next time period.
-
-The upper panel in Figure \ref{fig:process} illustrates the movement of the probability mass in the grid over time, whereas the lower panel shows how the probability that either (or none) of the options is chosen changes over time for the same process. To ensure that this estimation method is completely free of stochasticity, we used a deterministic fixation pattern, based on which item was fixated first in each 200 ms bin. 
+Figure \ref{fig:process} illustrates the diffusion process. On each trial, at time step 0, the process starts from the central bin defined by $x = 0$ and $y = 0$, with probability density 1, corresponding to no evidence for any of the three alternatives. As shown in the upper panel of Figure \ref{fig:process}, at each subsequent time step, we can model the movement and diffusion of this probability mass over our evidence grid. For example, in this example, in the first two time steps, Alternative 1 is fixated, and thus the overall probability mass starts moving towards the east (approaching the relative evidence bins that correspond to Alternative 1 being chosen). The movement of the probability mass throughout the choice process is governed by the model parameters. At each time step, we can derive the choice probability that either of alternatives are chosen by summing up the probability over the relevant evidence states. The corresponding choice probabilities are depicted in the lower panel of Figure \ref{fig:process}. Below we explain in more technical detail how the choice probabilities were derived.
 
 
-
-\newgeometry{left=0.5cm,bottom=0.5cm, right = 1.75cm, top = 0.5cm}
-\begin{landscape}
-\pagestyle{empty}%
+\newgeometry{left=1in,bottom=1.5in, right = 1.5in, top = 1.5in}
+%\begin{landscape}
+%\pagestyle{empty}%
 \begin{figure}
 \captionsetup{justification=centering}
 \caption{Illustration of the diffusion process over 8 time steps with attention pattern $1, 1, 2, 2, 2, 3, 3, 3$; $\sigma = 0.3$; $\theta = 0.67$; $d = 1$, $r = 0.5, 0.5, 0.5$}
+
+\vspace*{12mm}
 \centering
-\includegraphics[width=1\textwidth]{process.pdf}
+\includegraphics[width=1.1\textwidth]{process.pdf}
 \label{fig:process}
 \end{figure}
-\end{landscape}
+%\end{landscape}
 \restoregeometry
 
 
-Once we were able to calculate the choice probabilities using this method, we again started off with a grid search to find the best fitting parameters for each participant and subjective value transformation rule. We used the following parameter grid: $\theta=\{0.33, 0.67, 1\}$, $\sigma=\{0.1, 0.55, 1\}$, \textit{d}=$\{0.1, 0.55, 1\}$ in running the Nelder-Mead optimization algorithm. We used a smaller grid, because there is no stochasticity in this method, but it is also computationally more intensive to calculate (calculating the likelihood for one participant takes 13 times longer compared to the simulation approach). For the same reason, we only ran the Nelder-Mead process once more after the grid search, with a maximum iteration number of 100.  
+From a computational perspective, we derive these probabilities through a transition matrix. In each time period, we calculate the probability distribution over the grid by multiplying the previous time period's probability mass with our transition matrix. This matrix has two components. 
+
+The first component characterizes the diffusion of the probability density with $\sigma$ as the only input to a bivariate normal distribution with mean $\mu_x=0$ and $\mu_y=0$. Specifically, this is done by taking each of the 1271 bins in the grid as the center of a bivariate normal distribution with standard deviation $\sigma$, and calculating the exact probability mass falling into each of the 1271 bins in the grid. We can calculate this probability vector for all our bins in the grid, which gives us a $1271\cdot1271$ transition matrix, where each entry is the transition probability from one bin to another. Starting with a probability mass entirely concentrated in the bin defined as $x = 0$ and $y = 0$ at time step 0 (corresponding to no evidence for any of the alternatives), we can recursively multiply the resulting probability mass in each time step with this transition matrix. In absence of the second component, this process leads to a diffusion of the probability density around our starting point $x = 0$ and $y = 0$, corresponding to a diffusion process with no drift rate corresponding to a random walk process. 
+
+
+
+The second component is the drift rate, defined by $\theta$, $r$ and $d$ (described in Equations \ref{Evidence1}-\ref{Evidence3} in Section \ref{chap1addmexplain}), which governs the direction of the movement of the probability mass. The drift rate can be incorporated in the transition matrix by shifting the mean of the bivariate normal distributions. Because the drift rate varies depending on the attention pattern (through $\theta$), three transition matrices can be constructed, depending on which item is fixated. Taken together, through the model parameters, these two components define the transition probabilities over the relative evidence states, and determine the movement of the bivariate distribution in our grid.  
+
+
+As explained above, we can then derive the probability of choosing either of the options in at any given time period by summing up the probability mass entering the bins corresponding to the option's finished evidence states in that time step. Before moving to the next time period, all the probability mass over the finished evidence states are set to 0, allowing us to derive the probability that an option is chosen exactly in the next time period. To ensure that this estimation method is completely free of stochasticity, we used a deterministic fixation pattern, based on which item was fixated first in each 200 ms bin. 
+
+
+
+
+Once we were able to calculate the choice probabilities using this method, we again started off with a grid search to find the best fitting parameters for each participant and subjective value transformation rule. We used the following parameter grid: $\theta=\{0.33, 0.67, 1\}$, $\sigma=\{0.1, 0.55, 1\}$, \textit{d}=$\{0.1, 0.55, 1\}$ in running the Nelder-Mead optimization algorithm. We used a smaller grid, because there is no stochasticity in this method, but it is also computationally more intensive to calculate (calculating the log-likelihood for one participant takes 13 times longer compared to the simulation approach). For the same reason, we only ran the Nelder-Mead process once more after the grid search, with a maximum iteration number of 100.  
+
 
 
 \subsection{Results}
 
-For both methods, the model fitting process resulted in 200 likelihoods, one for each value transformation rule--participant pair. We wished to determine which value transformation rule produces the highest likelihood for each participant and estimation method. Since the fitted models have the same number of parameters, and are calculated on the same set of data, the likelihoods are directly comparable. Table \ref{table:chap1res} shows the distribution of participants based on their respective best fitting value transformation rules, demonstrating that the two estimation approaches have yielded very similar results.
+For both empirical methods (simulations and probability distribution approach), the model fitting process resulted in 200 log-likelihoods, one for each value transformation rule--participant pair. We wished to determine which value transformation rule produces the highest log-likelihood for each participant and estimation method. For each participant, the four subjective value variants of the aDDM have the same number of parameters, and are calculated on the same set of data, therefore the log-likelihoods are directly comparable. Table \ref{table:chap1res} shows the distribution of participants based on their respective best fitting value transformation rules, demonstrating that the two estimation approaches have yielded very similar results.
  
  
 \begin{table}[ht]
@@ -440,7 +464,7 @@ For both methods, the model fitting process resulted in 200 likelihoods, one for
 
 For the majority of participants (56-58\%), the global maximum rule provided the best fit, regardless of the estimation approach. This is followed by the local maximum rule, which provided the best fit for 18-22\% of the participants. The range rule proved to be the best fitting model for only about 10-12\% of participants. Interestingly, when using the probability distribution approach, the rank rule provided the best fit for 16\% of participants, whereas the same number for the simulations approach is only 8\%. 
 
-Table \ref{table:chap1res2} shows the median estimated parameter values by value transformation rule and estimation method. The parameter estimates do not vary considerably across value transformation rules or estimation methods. For the list of  best fitting parameter values for each participant by value transformation rule and estimation method, see Appendix \ref{appchap1}.
+Table \ref{table:chap1res2} shows the median estimated parameter values by value transformation rule and estimation method. The parameter estimates do not vary considerably across value transformation rules or estimation methods. For the list of  best fitting parameter values for each participant by value transformation rule and estimation method, see Appendices \ref{chap11}-\ref{chap12}.
 
 \begin{table}[h]
 \centering
@@ -464,25 +488,25 @@ Rank & 0.51 & 0.21 & 0.16 & 0.53 & 0.2 & 0.14\\
 
 
 
-Overall, these results point to a cognitive mechanism where subjective valuation mostly depends on the absolute value of the options, and, albeit to a lesser extent, is also affected by the relative magnitude of the options (compared to the maximum value on the current trial). In addition, the almost identical results from the two estimation approaches underline the robustness of the findings, and alleviates concerns about the reliability of the simulations method.
+Overall, these results point to a cognitive mechanism where subjective valuation largely depends on the absolute value of the options, and, albeit to a lesser extent, is also affected by the relative magnitude of the options (compared to the maximum value on the current trial). In addition, the almost identical results from the two estimation approaches underline the robustness of the findings, and alleviates concerns about the reliability of the simulations method.
 
  
  
 \section{Experiment 2}
 
-In Experiment 2, we still relied on the choice set manipulations to test the explanatory power of the four value transformation rules, but we used a fundamentally different stimuli and empirical approach. We assessed the explanatory power of the four value transformation rules by their ability to correctly predict how the choice set manipulations affect the choice proportions, using choice proportion data from Experiment 1 and a perceptual version of the same task (Experiment 2). 
+In Experiment 2, we still relied on the choice set manipulations to test the explanatory power of the four value transformation rules, but we used a fundamentally different stimuli and empirical approach. We assessed the explanatory power of the four value transformation rules by their ability to qualitatively predict how the choice set manipulations affect the choice proportions, using choice proportion data from Experiment 1 and a perceptual version of the same task (Experiment 2). 
 
-Experiment 2 had several rationales. First and foremost, comparing the results from a qualitative comparison of choice probabilities with the results from a model fitting approach allows us to gain a deeper understanding of the relative explanatory power of each value transformation rule. While we have some choice data on the seven relevant choice sets from Experiment 1, due to the error in the experimental procedure, it is not enough to conduct a test with appropriate statistical power. Second, it can be argued that the preference ratings participants gave in the first part of Experiment 1 are already context-dependent, since the movies are evaluated with respect to each other in the ratings task, which could affect our results. Finally, since the movie stimuli is somewhat complex in the sense that there are a range of factors we could not control for (e.g. visual saliency, mnemonic processes the stimuli can induce), repeating the experiment with a simpler, and more neutral stimuli will inform us about the validity and generalisability of our results. 
+Experiment 2 had several rationales. First and foremost, comparing the results from a further comparison of choice probabilities with the results from a model fitting approach allows us to gain a deeper understanding of the relative explanatory power of each value transformation rule. While we have some choice data on the seven relevant choice sets from Experiment 1, due to the error in the experimental procedure, it is not enough to conduct a test with appropriate statistical power. Second, it can be argued that the preference ratings participants gave in the first part of Experiment 1 are already context-dependent, since the movies are evaluated with respect to each other in the ratings task, which could have biased our previous results. Finally, since the movie stimuli are somewhat complex in the sense that there are a range of factors we could not control for (e.g. visual saliency, mnemonic processes the stimuli can induce), repeating the experiment with a simpler, and more neutral stimuli will inform us about the validity and generalisability of our results. 
 
 \subsection{Method}
 
-We recruited 130 participants through the University of Warwick's Research Participation System. On each trial, participants were presented with a trinary set of rapidly changing sequences of numbers (taken from \citeNP{Tsetsos2012a}) and were asked to choose the sequence with the highest average of numbers by pressing the corresponding keyboard key (left, down, right arrow). The numbers were updated every 210-250 ms. To familiarise participants with the task, the experiment began with three practice trials, where feedback were given on which sequence they chose. After the practice trials, there were 140 trials to be completed in two blocks. Participants could take a break for as long as they wished between the two blocks, and they were paid £5.00 for taking part in the experiment. Figure \ref{fig:experi2_numbers} shows one trial from this experiment. The experiment on average took about 15 minutes to complete. Ethical approval was obtained from the Department of Psychology, University of Warwick.
+We recruited 130 participants through the University of Warwick's Research Participation System. On each trial, participants were presented with a trinary set of rapidly changing sequences of numbers (taken from \citeNP{Tsetsos2012a}) and were asked to choose the sequence with the highest average of numbers by pressing the corresponding keyboard key (left, down, right arrow). The numbers were updated every 210-250 ms. To familiarise participants with the task, the experiment began with three practice trials, where feedback were given on which sequence they chose. After the practice trials, there were 140 trials to be completed in two blocks (20 trials per choice set). Participants could take a break for as long as they wished between the two blocks, and they were paid £5.00 for taking part in the experiment. Figure \ref{fig:experi2_numbers} shows one trial from this experiment. The experiment on average took about 15 minutes to complete. Ethical approval was obtained from the Department of Psychology, University of Warwick.
 
 \begin{figure}
 \captionsetup{justification=centering}
 \centering
 \caption{Example trial from Experiment 2.}
-\includegraphics[width=0.7\textwidth]{experi2.png}
+\includegraphics[width=0.7\textwidth]{./experi2.png}
 \label{fig:experi2_numbers}
 \end{figure}
 
@@ -493,28 +517,28 @@ Numbers for each presented sequence were derived from a truncated normal distrib
 
 \subsection{Results}
 
-For a qualitative test of the four value transformation rules, we compared the empirical choice proportions (from Experiment 1 and 2) with the choice set manipulation predictions of each value transformation rule. The choice proportion predictions for each value transformation rule were derived from simulating out the DDM 100,000 times. These simulations focused only on the eventually chosen item, and did not take reaction times into account.
+For a further test of the four value transformation rules, we compared the empirical choice proportions (from Experiment 1 and 2) with the choice set manipulation predictions of each value transformation rule. The choice proportion predictions for each value transformation rule were derived from simulating out each trial using DDM 10,000 times. These simulations focused only on the eventually chosen item, and did not take reaction times into account.
 
-In the DDM, there are two parameters, $\sigma$, the noise, and $d$, the speed of integration. While our main interest, the qualitative patterns of predicted choice proportions are largely insensitive to the exact parameter values, we still needed to determine what parameter sets to use for generating predictions for each value transformation rule. To obtain the most appropriate parameter values, we used a grid search approach, with the following parameter pairs: $\sigma=\{0.15, 0.25, 0.35, 0.45, 0.55\}$, $\textit{d}=\{0.15, 0.25, 0.35, 0.45, 0.55\}$. In this grid search, we assessed the fit of each parameter value pair for each value transformation rule by comparing the predicted choice proportions to the empirical proportions obtained from Experiment 2. More specifically, we took the logarithm of the probability differences across choice sets and summed these, and selected the parameter value pair for each value transformation rule which minimised the overall probability difference. We based our calculations on the results from Experiment 2 as opposed to Experiment 1, due to the much larger sample size for the relevant choice sets. Table \ref{table:chap1res3} shows the best fitting parameter pairs for each value transformation rule from this grid search. 
+In the DDM, there are two parameters, $\sigma$, the noise, and $d$, the speed of integration. While our main interest, the qualitative patterns of predicted choice proportions are largely insensitive to the exact parameter values, we still needed to determine the exact parameter values to use for generating predictions for each value transformation rule. To derive these (group-level) parameter sets, we again used a Nelder-Mead optimization algorithm minimising the squared difference between the simulated and empirical choice proportions for each value transformation rule.  The empirical choice proportions were based on the results from Experiment 2 as opposed to Experiment 1, due to the much larger sample size for the relevant choice sets. We ran the optimization algorithm with a maximum iteration number of 150 twice, first with starting parameters  $\sigma = 0.1, d = 0.1$, and then using the resulting parameters from the first run as starting parameters for the second optimization process. Table \ref{table:chap1res3} shows the best fitting parameter pairs for each value transformation rule. 
 
-\begin{table}[h]
+\begin{table}[htb!]
 \centering
-\caption{Best fitting parameter values from the grid search for each value transformation rule.}
+\caption{Best fitting group-level parameter values from the grid search for each value transformation rule.}
 \begin{tabular}{lcccccc}
 \toprule 
  & $\sigma$ & $d$ \\
 \midrule
-Global Max & 0.25 & 0.35  \\
-Local Max & 0.35  & 0.55\\
-Range & 0.45  & 0.45 \\
-Rank & 0.25  & 0.15\\
+Global Max & 0.12 & 0.09  \\
+Local Max & 0.13  & 0.07\\
+Range & 0.15  & 0.06 \\
+Rank & 0.15  & 0.06\\
 \bottomrule
 \end{tabular}
 \label{table:chap1res3}
 \end{table}
 
 
-
+\FloatBarrier
 
 %Although the qualitative patterns of predicted choice proportions are largely insensitive to the exact parameter values, for the sake of comparability, we decided to use the same parameter pair ($\sigma$ and \textit{d}) in all simulations. This parameter pair was derived in the following way.
 
@@ -522,54 +546,60 @@ Rank & 0.25  & 0.15\\
 
 
 
-Figures \ref{fig:addconstant_all}-\ref{fig:closedist3rd_all} show the predictions for each rule and the associated empirical choice proportions. In these figures, the four panels to the left correspond to the choice proportion predictions from the DDM simulations, while the two panels on the right show the resulting choice proportions from the two experiments and their associated 95\% CIs. All model predictions are based on 100,000 simulations. The difference in the precision of the estimates from the two experiments reflects the difference in the amount of choice data available for the relevant choice sets.  
+Figures \ref{fig:addconstant_all}-\ref{fig:closedist3rd_all} show the predictions for each rule and the associated empirical choice proportions from both experiments. In these figures, the four panels to the left correspond to the choice proportion predictions from the DDM simulations, while the two panels on the right show the resulting choice proportions from the two experiments and their associated 95\% CIs. All model predictions are based on 100,000 simulations. The difference in the precision of the estimates from the two experiments reflects the difference in the amount of choice data available for the relevant choice sets.  
 
-\textbf{Adding a constant.} Figure \ref{fig:addconstant_all} shows the effect of adding a constant. Unfortunately, the wide confidence intervals around the choice proportions from Experiment 1 do not allow us to see any clear patterns, but the results from Experiment 2 are broadly in line with the predictions from the local maximum rule. In summary, the results from adding a constant lend partial support to the local maximum rule, as no other value transformation rule predicts the correct qualitative pattern.  
 
+
+
+\textbf{Adding a constant.} Figure \ref{fig:addconstant_all} shows the effect of adding a constant. The local maximum rule predicts that this value manipulation results in the best option becoming relatively less attractive compared to the other two, whereas none of the other three value transformation rules predict any change in the choice proportions. Unfortunately, the wide confidence intervals around the choice proportions from Experiment 1 do not allow us to see any clear patterns, but the results from Experiment 2 are broadly in line with the predictions from the local maximum rule (albeit the changes are less pronounced than predicted). In summary, the results from adding a constant lend partial support to the local maximum rule, as no other value transformation rule predicts the correct qualitative pattern.  
 
 \begin{figure}[!htb]
 \captionsetup{justification=centering}
 \centering
 \caption{Choice set manipulation adding a constant}
-\includegraphics[width=0.9\textwidth]{addconst.pdf}
+\includegraphics[width=0.9\textwidth]{./addconst.pdf}
 \label{fig:addconstant_all}
 \end{figure}
-
-\textbf{Multiplying by a constant.} Figure \ref{fig:multiply_all} shows the effect of multiplying each value by a constant. Only the global maximum rule predicts a change in the choice proportions. Specifically, it predicts that the best option will benefit from adding a constant to each value. The results from both experiments are in line with these predictions, strongly supporting the global maximum rule.
 
 \begin{figure}[!htb]
 \captionsetup{justification=centering}
 \centering
 \caption{Choice set manipulation multiplication by constant}
-\includegraphics[width=0.9\textwidth]{multiply.pdf}
+\includegraphics[width=0.9\textwidth]{./multiply.pdf}
 \label{fig:multiply_all}
 \end{figure}
 
-\textbf{Distant vs close second.} Figure \ref{fig:distclose2nd_all} shows the results from the close versus distant second choice set manipulation. Only the rank rule does not predict any change in the choice proportions. Results from the two experiments show that there is a substantial change in the choice proportions, as the middle item becomes relatively more attractive compared to the best item, which was predicted by all the other value transformation rules. Therefore, the distant versus close second choice manipulation rules provides strong evidence against the rank rule. 
+%\FloatBarrier
+
+\textbf{Multiplying by a constant.} Figure \ref{fig:multiply_all} shows the effect of multiplying each value by a constant. The global maximum rule predicts that this value manipulation results in the best option becoming relatively more attractive compared to the other two, whereas none of the other three value transformation rules predict any change in the choice proportions. The results from both experiments are in line with the prediction that the best option will increase its choice proportion share at the expense of the other two, strongly supporting the global maximum rule.
+
+
+
+\textbf{Distant versus close second.} Figure \ref{fig:distclose2nd_all} shows the results from the close versus distant second choice set manipulation. Only the rank rule does not predict any change in the choice proportions, while the other three rules predict that the middle option becomes relatively more attractive. Results from both experiments support the latter prediction. Therefore, results from the distant versus close second choice manipulation provides strong evidence against the rank value transformation rule. 
 
 
 \begin{figure}[!htb]
 \captionsetup{justification=centering}
 \centering
 \caption{Choice set manipulation close versus distant middle}
-\includegraphics[width=0.9\textwidth]{closedistsec.pdf}
+\includegraphics[width=0.9\textwidth]{./closedistsec.pdf}
 \label{fig:distclose2nd_all}
 \end{figure}
 
-\textbf{Distant vs close third.} Finally, Figure \ref{fig:closedist3rd_all} shows the results from the close versus distant third choice set manipulation. The predictions of the value transformation rules differ significantly, the two maximum rules predicting that the worst option will benefit at the expense of the other two, the range rule predicting that the middle item will become relatively less attractive compared to the best due to the increased proximity of the worst item and the decrease in the range of values. The rank rule does not predict any change.  While the results from Experiment 2 unequivocally support the predictions of the two maximum rules, the results form Experiment 1 are more mixed (although we can detect a clear increase in the choice proportion of the  middle item). Therefore, the close versus distant third offers support for the two maximum rules.
+\textbf{Distant versus close third.} Finally, Figure \ref{fig:closedist3rd_all} shows the results from the close versus distant third choice set manipulation. The predictions of the value transformation rules differ significantly, the two maximum rules predicting that the worst option will benefit at the expense of the other two (albeit the extent of this change slightly differs between the two rules), and the range rule predicting that both the worst and best options will steal from the middle item's share. The rank rule does not predict any change.  While the results from Experiment 2 unequivocally support the predictions of the two maximum rules, the results form Experiment 1 are more mixed (although we can detect a clear increase in the choice proportion of the  middle item). Therefore, results from the close versus distant third choice manipulation offers support for the two maximum rules.
 
 \begin{figure}[!htb]
 \captionsetup{justification=centering}
 \centering
 \caption{Choice set manipulation close versus distant third}
-\includegraphics[width=0.9\textwidth]{closedistthird.pdf}
+\includegraphics[width=0.9\textwidth]{./closedistthird.pdf}
 \label{fig:closedist3rd_all}
 \end{figure}
 
 
-To summarize, the results from the qualitative comparisons suggest that the two maximum normalisation rules had the highest explanatory power. More specifically, albeit to varying degrees, but both rules predicted the effect of three out of the four choice set manipulations, the range rule successfully predicted one, and the rank rule did not predict the effect of any of the choice set manipulations.
+To summarize, the results from these qualitative comparisons suggest that the two maximum normalisation rules had the highest explanatory power. More specifically, albeit to varying degrees, but both maximum rules predicted the effect of three out of the four choice set manipulations, the range rule successfully predicted one, and the rank rule did not predict the effect of any of the choice set manipulations.
 
-This can be contrasted with the results from the model fitting approach, which indicated that the global maximum rule has the highest explanatory power by far. In line with this, multiplication by a constant, which was only correctly predicted by the global maximum rule, resulted in the largest difference between choice proportions in Experiment 1.
+These results can be contrasted with the results from the model fitting approach, which indicated that the global maximum rule has the highest explanatory power by far. In line with this, multiplication by a constant, which was only correctly predicted by the global maximum rule, resulted in the largest difference between choice proportions in Experiment 1. However, it is also clear from the results of the qualitative comparison that the global maximum rule cannot alone explain choice behaviour.
 
 
 In addition, interestingly, even though the two experiments involved fundamentally different stimuli (complex versus perceptual), the effects of the choice set manipulations on the choice proportions turned out to be rather similar. Unfortunately, a strict comparison of the two datasets is hindered by the relatively small sample size of Experiment 1. Nevertheless, the results lend some support to the idea that there exists a common valuation mechanism across a range of stimuli domains.
@@ -582,7 +612,7 @@ In addition, interestingly, even though the two experiments involved fundamental
 
 In this research project, our aim was to conduct a comprehensive evaluation of the relative explanatory power of four different forms of context-dependency. To compare four value transformation rules, each of which captures a different form of context-dependent valuation, we used a popular cognitive model, the DDM and its extension, the aDDM, to derive predictions about choice behaviour in two choice experiments with trinary choice sets, one with complex stimuli (movie posters), and another one with a perceptual task.
 
-Two fundamentally different approaches, a quantitative approach that entailed fitting the aDDM to choice and eye-tracking data from Experiment 1, and a qualitative approach, involving the inspection of resulting choice proportions from both experiments were used for the comparison. The results from the two comparison methods were broadly in line, both supporting the view that while subjective valuation mostly reflects the absolute magnitude of the options under consideration, to a lesser extent, it is also affected by the relative value of the options (within the local context).
+We tested the relative explanatory power of these value transformation rules in two ways. First, we used a model fitting approach, using choice and eye-tracking data from Experiment 1. Second, we compared the qualitative patterns of choice proportions using data from Experiment 2 and 1. The results from the two comparison methods were broadly in line, both supporting the view that while subjective valuation mostly reflects the absolute magnitude of the options under consideration, to a lesser extent, it is also affected by the relative value of the options (within the local context).
 
 These findings are consistent with insights from research investigating the neural correlates of value-based decision making. Results from numerous neuroeconomic studies strongly support the view that the orbifrontal cortex (OFC) is the brain region where subjective value encoding takes place in economic choices (for a review see \citeNP{Padoa-Schioppa2017}). More importantly, it has been suggested that there is a group of neurons in the OFC with two fundamental properties that are likely to be directly responsible for simultaneous absolute and relative value sensitivity in economic valuation.
 
@@ -600,7 +630,7 @@ In their experiment, participants were instructed to choose the brighter out of 
 
 Interestingly, they found that no  ``pure'' (either entirely absolute or relative) accumulation model could account for the data, and thus they propose two distinct types  of models that can account for this pattern: a DDM model where the noise in the process is a function of the intensity of the inputs, and a leaky competing accumulator model (LCA; \citeNP{Usher2001}), where simultaneous absolute and relative value sensitivity is a result of lateral inhibition. 
 
-While our approach is different from that of \citeA{Teodorescu2016}, our results are similar, as they both suggest that subjective valuation are sensitive to both the absolute and relative magnitudes of objective values. This dovetails with findings from neuroeconomic research that suggests that OFC neurons exhibit both menu invariance and range adaptation. Taken together, these results point to a sequential sampling model with some form of hybrid value transformation rule. Since an ever increasing amount of research focuses on understanding the neural basis of economic decision making, insights from this field will no doubt inform and greatly advance the explanatory power of cognitive models of choice in the future.
+While our approach is different from that of \citeA{Teodorescu2016}, our results are similar, as they both suggest that subjective valuation are sensitive to both the absolute and relative magnitudes of objective values. This dovetails with findings from neuroeconomic research that suggests that OFC neurons exhibit both menu invariance and range adaptation. Taken together, these results point to a sequential sampling model with some form of hybrid value transformation rule. As an ever increasing amount of research focuses on understanding the neural basis of economic decision making, insights from this field will no doubt inform and greatly advance the explanatory power of cognitive models of choice in the future.
 
 \bibliographystyle{apacite}
 
