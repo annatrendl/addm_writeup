@@ -1,6 +1,7 @@
 # addm_writeup
 chapter 1 write up
 
+Anna: done on 30th May
 New comments from Neil May 22:
 
 1. On p. 14, explain Figure 3 in more detail (perhaps this comes later). So talk the reader through the different manipulations and how the four models make different predictions.
